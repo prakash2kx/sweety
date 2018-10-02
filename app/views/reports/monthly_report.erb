@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="reports">
+    <div class="row">
+      <div class="col-lg-4">
+        <span>Date</span>
+        <span><%= month_field_tag :month_field,Date.today %></span>
+        <button type="button" class="btn btn-primary" id="mtd_report">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <span>Month to date report </span>
+</div>
+<div id="mr_content">
+  <%= render partial: 'metric_data' %>
+</div>
+
+
+<script type="text/javascript">
+    $("#mtd_report").on('click', function(){
+        var date = new Date($('#month_field').val());
+        day = date.getDate();
+        month = date.getMonth() + 1;
+        year = date.getFullYear();
+        input_date = [year, month, day].join('-');
+        $.get("<%= monthly_report_reports_path%>",{date: input_date},function(data){
+            $("#mr_content").html(data);
+        })
+    })
+</script>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Sweety</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'simple-sidebar', media: 'all'%>
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <nav class="navbar1 navbar-inverse1">
+    <div class=" title_span">
+       <span class="container navbar-brand1"> Sweety</span>
+       <span class="navbar-brand2" ><%= link_to "Logout", logout_path%></span>
+    </div>
+  </nav>
+  <% unless controller.is_a?(LoginController) %>
+  <div class="sidenav">
+    <ul>
+      <li ><%= link_to "Metrics", metrics_path %></li>
+      <li><%= link_to "Daily Reports", daily_report_reports_path %></li>
+      <li><%= link_to "Month to Date Reports",month_to_date_report_reports_path %></li>
+      <li><%= link_to "Monthly Reports", monthly_report_reports_path %></li>
+    </ul>
+  </div>
+    <%end %>
+
+  <div class="main">
+    <%= yield %>
+  </div>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,117 @@
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 52px;
+  left: 0;
+  background-color: #539DC2	;
+  overflow-x: hidden;
+  padding-top: 30px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 12px;
+  color: #ffffff;
+  display: block;
+}
+.title_span span {
+  color: #ffffff!important;
+  text-decoration: none!important;
+}
+
+.main {
+  margin-left: 160px; /* Same as the width of the sidenav */
+  font-size: 14px; /* Increased text to enable scrolling */
+  padding: 16px 26px;
+}
+
+.navbar1 {
+  position: relative;
+  min-height: 50px;
+  //border: 1px solid #e5e5e5;
+}
+
+@media screen and (max-height: 50px) {
+  .sidenav {padding-top: 5px;}
+  .sidenav a {font-size: 5px;}
+}
+.navbar-inverse1 {
+  background-color: #539DC2;
+}
+
+.navbar-brand1 {
+  float: left;
+  padding: 13px 40px;
+  font-size: 22px;
+  line-height: 22px;
+  height: 50px;
+  font-family: cursive;
+}
+.navbar-brand2 a {
+  float: right;
+  padding: 15px 75px;
+  font-size: 15px;
+  line-height: 22px;
+  height: 50px;
+  color: #ffffff !important;
+}
+
+
+/* login box css */
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
+body {
+  background-color: #f9f9f9 !important;
+  font-family: 'Open Sans', sans-serif!important;
+  font-size:11px;
+}
+.well{
+  background-color:#fff!important;
+  border-radius:0!important;
+  border:black solid 1px;
+}
+
+.well.login-box {
+  /*width:400px; */
+  border:#d1d1d1 solid 1px;
+  margin:0 auto;
+  margin-top:150px;
+  margin-left:75px;
+}
+
+/*report box */
+
+
+.reports {
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #f5f5f51c;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+}
+
+
+.report_date input[type="date"] {
+  height: 14px;
+  font-size: 10px;
+  line-height: 14px;
+}
+
+
+
+
+
+
+
+
+
+
+

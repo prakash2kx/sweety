@@ -1,0 +1,116 @@
+<h3><ul><%= 'Glucose reading for ' + current_user.email %></ul></h3>
+<div class="container" id="notice">
+    <%= flash[:notice] %>
+</div>
+</br>
+
+
+<%= form_for(:metric, url: metrics_path) do |f| %>
+   <div class="container">
+     <div>
+       <%= "Glucose units" %>
+       <%= f.text_field :glucose_unit%>
+       <%= f.submit "Add", class: "btn-primary" %>
+     </div>
+   </div>
+<% end %>
+</br>
+<div class="container">
+  <span>Patient glucose metrics</span>
+  <p></p>
+  <table class="table table-bordered table-striped bg-light">
+    <thead>
+    <tr>
+      <th>No</th>
+      <th>Date</th>
+      <th>mg/dl</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <%count = 1 %>
+    <%@metrics.each do |metric| %>
+    <tr>
+      <td><%= count %></td>
+      <td><%= metric.created_at.strftime("%d-%m-%Y") %></td>
+      <td><%= metric.glucose_unit %></td>
+      <td>
+        <% if Date.today.strftime("%d-%m-%Y") == metric.created_at.strftime("%d-%m-%Y") %>
+          <span><%= link_to "Edit", "#", "data-toggle" => "modal" , "data-target" => "#myModal_#{metric.id}" %></span>
+          <span><%= link_to "Destroy", metric, method: :delete , data: { confirm: "Are you sure?"} %></span>
+        <% end %>
+      </td>
+      <div id="myModal_<%= metric.id%>"  class="modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Update Glucose Metric</h4>
+            </div>
+            <div class="modal-body">
+              <div class="container">
+                <div>
+                  <%= "Glucose units" %>
+                  <%= text_field_tag "glucose_unit_#{metric.id}", metric.glucose_unit %>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="save_<%= metric.id%>" onclick="update_glucose_unit(<%= metric.id %>,this)">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </tr>
+      <%count += 1 %>
+    <% end %>
+
+    </tbody>
+  </table>
+  <div class="container">
+    <%= will_paginate @metrics%>
+  </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        function alignModal(){
+            var modalDialog = $(this).find(".modal-dialog");
+
+            modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
+        }
+
+        $(".modal").on("shown.bs.modal", alignModal);
+
+        $(window).on("resize", function(){
+            $(".modal:visible").each(alignModal);
+        });
+    });
+
+  $(document).ready(function () {
+      $("#notice").css("display", "block");
+      if("<%= flash[:notice] %>" != "Successfully created"){
+       $("#notice").css("background-color","red");
+      }
+      else
+      {
+          $("#notice").css("background-color","green");
+      }
+      });
+
+  function update_glucose_unit(mid,btn){
+      var btn_id = btn.id.split("_")[1];
+      $.ajax(
+          {
+              type: 'PUT',
+              url: "metrics/"+ mid,
+              data:{"metric[glucose_unit]": $("#glucose_unit_"+btn_id).val()},
+              async: "true"
+          }
+      );
+
+  }
+
+</script>
+

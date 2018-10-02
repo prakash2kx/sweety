@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="reports">
+    <div class="row">
+      <div class="col-lg-4">
+          <span>Date</span>
+          <span><%= date_field_tag :date_field, Date.today %></span>
+          <button type="button" class="btn btn-primary" id="daily_report">Search</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <span>Daily report </span>
+</div>
+<div id="daily_report_content">
+  <%= render partial: 'metric_data' %>
+</div>
+
+
+<script type="text/javascript">
+  $("#daily_report").on('click', function(){
+      var date = new Date($('#date_field').val());
+      day = date.getDate();
+      month = date.getMonth() + 1;
+      year = date.getFullYear();
+      input_date = [year, month, day].join('-');
+      $.get("<%= daily_report_reports_path%>",{date: input_date},function(data){
+        $("#daily_report_content").html(data);
+      })
+  })
+</script>
